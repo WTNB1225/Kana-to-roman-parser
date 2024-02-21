@@ -28,65 +28,91 @@ const parser = {
       }
     }
     this.pattern = new Array(parsedData.length).fill(0);
-    console.log(this.pattern[0]);
-    return parsedData;
+
+    return hiragana, parsedData;
   },
   check: function (parsedData) {
     const sentence = document.getElementById("sentence");
-    let idx1 = 0;
-    let idx2 = 0;
+    this.idx1 = 0;
+    this.idx2 = 0;
+    this.tmp_idx1 = 0;
+    this.tmp_idx2 = 0;
     let temp = "";
-    let previousCandidates = [];
     document.addEventListener("keydown", (event) => {
       let key = event.key;
       if (key == "Escape") {
-        // Escを押した場合
-        // 何かの処理
       } else {
         temp += key;
-        if (key == parsedData[idx1][this.pattern[idx1]][idx2]) {
+        if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
           console.log("Ok");
-          sentence.innerHTML = this.colorTyped(parsedData, this.pattern, idx1, idx2);
-          idx2++;
+          sentence.innerHTML = this.colorTyped(
+            parsedData,
+            this.pattern,
+            this.idx1,
+            this.idx2
+          );
+          this.idx2++;
           // 正しいキーが押されたときの処理
         } else {
           let reg = new RegExp("^" + temp);
-          for (let i = 0; i < parsedData[idx1].length; i++) {
-            if (!!parsedData[idx1][i].match(reg)) {
-              this.pattern[idx1] = i;
+          for (let i = 0; i < parsedData[this.idx1].length; i++) {
+            if (!!parsedData[this.idx1][i].match(reg)) {
+              this.pattern[this.idx1] = i;
               break;
             }
           }
-          console.log(parsedData[idx1][0][0].length);
-          if (key == parsedData[idx1][this.pattern[idx1]][idx2]) {
+          if (
+            key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]
+          ) {
             sentence.innerHTML = this.colorTyped(
               parsedData,
               this.pattern,
-              idx1,
-              idx2
+              this.idx1,
+              this.idx2
             );
-            idx2++;
+            this.idx2++;
           } else {
             temp = temp.slice(0, -1);
           }
         }
-        if (idx2 == parsedData[idx1][this.pattern[idx1]].length) {
-          if (idx1 == parsedData.length - 1) {
+        if (
+          this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length
+        ) {
+          if (this.idx1 == parsedData.length - 1) {
             console.log("Finish");
+            this.tmp_idx1 = this.idx1;
+            this.tmp_idx2 = this.idx2;
+            this.idx1 = 0;
+            this.idx2 = 0;
+            return true;
           } else {
-            idx1++;
-            idx2 = 0;
+            this.idx1++;
+            this.idx2 = 0;
             temp = "";
-            previousCandidates = [];
           }
         }
       }
     });
   },
+  isFinished: function (parsedData) {
+    if (
+      this.tmp_idx2 ==
+      parsedData[this.tmp_idx1][this.pattern[this.tmp_idx1]].length
+    ) {
+      if (this.tmp_idx1 == parsedData.length - 1) {
+        console.log("Finish2");
+        this.idx1 = 0;
+        this.idx2 = 0;
+        return true;
+      }
+    }
+    return false;
+  },
   colorTyped: function (parsedData, pattern, idx1, idx2) {
     let html = '<div><span class="typed">';
     if (idx1 > 0) {
       for (let i = 0; i < idx1; i++) {
+        console.log(parsedData[i][pattern[i]]);
         html += parsedData[i][pattern[i]];
       }
     }
@@ -104,5 +130,3 @@ const parser = {
     return html;
   },
 };
-
-parser.check(parser.build("まっちょ"));
