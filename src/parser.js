@@ -33,10 +33,9 @@ const parser = {
   },
   check: function (parsedData) {
     const sentence = document.getElementById("sentence");
+    const sentenceJP = document.getElementById("sentenceJP");
     this.idx1 = 0;
     this.idx2 = 0;
-    this.tmp_idx1 = 0;
-    this.tmp_idx2 = 0;
     let temp = "";
     document.addEventListener("keydown", (event) => {
       let key = event.key;
@@ -44,7 +43,6 @@ const parser = {
       } else {
         temp += key;
         if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
-          console.log("Ok");
           sentence.innerHTML = this.colorTyped(
             parsedData,
             this.pattern,
@@ -79,11 +77,15 @@ const parser = {
           this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length
         ) {
           if (this.idx1 == parsedData.length - 1) {
-            console.log("Finish");
-            this.tmp_idx1 = this.idx1;
-            this.tmp_idx2 = this.idx2;
+            sentence.innerHTML = "";
             this.idx1 = 0;
             this.idx2 = 0;
+            temp = "";
+            parsedData = temp;
+            parsedData = null;
+            randomNum = Math.floor(Math.random() * text2.length); // 0からtext2.length-1までの乱数を生成
+            sentenceJP.textContent = text1[randomNum];
+            parsedData = this.build(text2[randomNum]);
             return true;
           } else {
             this.idx1++;
@@ -93,26 +95,19 @@ const parser = {
         }
       }
     });
+    this.isFinished(parsedData);
   },
   isFinished: function (parsedData) {
-    if (
-      this.tmp_idx2 ==
-      parsedData[this.tmp_idx1][this.pattern[this.tmp_idx1]].length
-    ) {
-      if (this.tmp_idx1 == parsedData.length - 1) {
-        console.log("Finish2");
-        this.idx1 = 0;
-        this.idx2 = 0;
+    if (this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length) {
+      if (this.idx1 == parsedData.length - 1) {
         return true;
       }
     }
-    return false;
   },
   colorTyped: function (parsedData, pattern, idx1, idx2) {
     let html = '<div><span class="typed">';
     if (idx1 > 0) {
       for (let i = 0; i < idx1; i++) {
-        console.log(parsedData[i][pattern[i]]);
         html += parsedData[i][pattern[i]];
       }
     }
@@ -128,5 +123,9 @@ const parser = {
     }
     html += "</span></div>";
     return html;
+  },
+  setData: function (text1, text2) { //text1: 本文, text2:ひらがな
+    this.text1 = text1;
+    this.text2 = text2;
   },
 };
