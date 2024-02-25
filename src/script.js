@@ -206,9 +206,10 @@ const text2 = [
 ];
 
 const sentenceJP = document.getElementById("sentenceJP");
-
+const hiragana = document.getElementById("hiragana");
 //文章をセット
 parser.setData(text1, text2);
 //最初は自分で文章をセットする必要がある
-sentenceJP.textContent = text1[0]; //漢字の文章をセット
-parser.check(parser.build(text2[0])); //ひらがなの文章をセット
+sentenceJP.textContent = text1[text1.length - 1]; //漢字の文章をセット
+hiragana.textContent = text2[text1.length - 1]; //ひらがなの文章をセット
+parser.check(parser.build(text2[text1.length - 1])); //ひらがなの文章をセット
