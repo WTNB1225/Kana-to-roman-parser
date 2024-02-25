@@ -34,21 +34,109 @@ const parser = {
   check: function (parsedData) {
     const sentence = document.getElementById("sentence");
     const sentenceJP = document.getElementById("sentenceJP");
+    const hiranagaSentence = document.getElementById("hiragana");
     this.idx1 = 0;
     this.idx2 = 0;
+    this.kanaIdx = 0;
     let temp = "";
     document.addEventListener("keydown", (event) => {
+      const nextChar =
+        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 1];
+      const secondNextChar =
+        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 2];
+      const prevChar =
+        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 - 1];
+      const secondPrevChar =
+        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 - 2];
       let key = event.key;
       if (key == "Escape") {
       } else {
         temp += key;
         if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
-          sentence.innerHTML = this.colorTyped(
+          sentence.innerHTML = this.colorTypedRoma(
             parsedData,
             this.pattern,
             this.idx1,
             this.idx2
           );
+          if (
+            key == "a" ||
+            key == "i" ||
+            key == "u" ||
+            key == "e" ||
+            key == "o" ||
+            key == "," ||
+            key == "." ||
+            key == " " ||
+            key == "-"
+          ) {
+            if (
+              prevChar !== "a" &&
+              prevChar !== "i" &&
+              prevChar !== "u" &&
+              prevChar !== "e" &&
+              prevChar !== "o" &&
+              (secondPrevChar == "l" || secondPrevChar == "x")
+            ) {
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              console.log("1");
+            } else if(prevChar !== "a") {
+
+            }else if (
+              prevChar !== "a" &&
+              prevChar !== "i" &&
+              prevChar !== "u" &&
+              prevChar !== "e" &&
+              prevChar !== "o" &&
+              secondPrevChar !== "a" &&
+              secondPrevChar !== "i" &&
+              secondPrevChar !== "u" &&
+              secondPrevChar !== "e" &&
+              secondPrevChar !== "o" &&
+              prevChar !== undefined &&
+              secondPrevChar !== undefined
+            ) {
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              console.log("2");
+            } else {
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              console.log("3");
+            }
+          } else if (
+            key == "n" &&
+            parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 - 1] == "n"
+          ) {
+            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+            this.kanaIdx++;
+            console.log("4");
+          } else if (key == "n" && prevChar == "x") {
+            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+            this.kanaIdx++;
+            console.log("5");
+          } else if (
+            key == "n" &&
+            !(
+              nextChar === "a" ||
+              nextChar === "i" ||
+              nextChar === "u" ||
+              nextChar === "e" ||
+              nextChar === "o"
+            ) &&
+            (secondNextChar === "a" ||
+              secondNextChar === "i" ||
+              secondNextChar === "u" ||
+              secondNextChar === "e" ||
+              secondNextChar === "o")
+          ) {
+            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+            this.kanaIdx++;
+            console.log("6");
+          }
           this.idx2++;
           // 正しいキーが押されたときの処理
         } else {
@@ -62,12 +150,56 @@ const parser = {
           if (
             key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]
           ) {
-            sentence.innerHTML = this.colorTyped(
+            sentence.innerHTML = this.colorTypedRoma(
               parsedData,
               this.pattern,
               this.idx1,
               this.idx2
             );
+            if (
+              key == "a" ||
+              key == "i" ||
+              key == "u" ||
+              key == "e" ||
+              key == "o" ||
+              key == "," ||
+              key == "." ||
+              key == " " ||
+              key == "-"
+            ) {
+              if (
+                prevChar !== "a" &&
+                prevChar !== "i" &&
+                prevChar !== "u" &&
+                prevChar !== "e" &&
+                prevChar !== "o" &&
+                secondPrevChar !== "a" &&
+                secondPrevChar !== "i" &&
+                secondPrevChar !== "u" &&
+                secondPrevChar !== "e" &&
+                secondPrevChar !== "o" &&
+                prevChar !== undefined &&
+                secondPrevChar !== undefined
+              ) {
+                hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                this.kanaIdx++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                this.kanaIdx++;
+                console.log("7");
+              } else {
+                hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                this.kanaIdx++;
+                console.log("8");
+              }
+            } else if (
+              key == "n" &&
+              parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 1] ==
+                "n"
+            ) {
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              console.log("9");
+            }
             this.idx2++;
           } else {
             temp = temp.slice(0, -1);
@@ -80,11 +212,13 @@ const parser = {
             sentence.innerHTML = "";
             this.idx1 = 0;
             this.idx2 = 0;
+            this.kanaIdx = 0;
             temp = "";
             parsedData = temp;
             parsedData = null;
             randomNum = Math.floor(Math.random() * text2.length); // 0からtext2.length-1までの乱数を生成
             sentenceJP.textContent = text1[randomNum];
+            hiranagaSentence.textContent = text2[randomNum];
             parsedData = this.build(text2[randomNum]);
             return true;
           } else {
@@ -95,16 +229,21 @@ const parser = {
         }
       }
     });
-    this.isFinished(parsedData);
   },
-  isFinished: function (parsedData) {
-    if (this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length) {
-      if (this.idx1 == parsedData.length - 1) {
-        return true;
-      }
-    }
+  colorTypedJapanese: function () {
+    const hiranagaSentence = document.getElementById("hiragana");
+    str = hiranagaSentence.textContent;
+    html = "";
+    html +=
+      "<span class='typed'>" +
+      str.slice(0, this.kanaIdx + 1) +
+      "</span>" +
+      "<span>" +
+      str.slice(this.kanaIdx + 1) +
+      "</span>";
+    return html;
   },
-  colorTyped: function (parsedData, pattern, idx1, idx2) {
+  colorTypedRoma: function (parsedData, pattern, idx1, idx2) {
     let html = '<div><span class="typed">';
     if (idx1 > 0) {
       for (let i = 0; i < idx1; i++) {
@@ -124,7 +263,8 @@ const parser = {
     html += "</span></div>";
     return html;
   },
-  setData: function (text1, text2) { //text1: 本文, text2:ひらがな
+  setData: function (text1, text2) {
+    //text1: 本文, text2:ひらがな
     this.text1 = text1;
     this.text2 = text2;
   },
