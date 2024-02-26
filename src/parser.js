@@ -1,10 +1,14 @@
-const hiranagaMap = hiranagaMaps();
+import { hiraganaMap as hiraganaMapFunction } from "./hiraganaMap.js";
+import { romajiMap } from "./romajiMap.js";
+import { text1, text2 } from "/sample/script.js";
+const hiraganaMaps = hiraganaMapFunction();
 const parser = {
   build: function (hiragana) {
     let three_letter;
     let two_letter;
     let one_letter;
-    const map = maps();
+    const map = romajiMap();
+    console.log(map);
     const parsedData = [];
     for (let i = 0; i < hiragana.length; i++) {
       three_letter = hiragana.slice(i, i + 3);
@@ -53,17 +57,17 @@ const parser = {
         hiraganaTemp += key;
         if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
           sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2);
-          if ( hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 2) {
+          if ( hiraganaMaps.get(JSON.stringify([hiraganaTemp])) && hiraganaMaps.get(JSON.stringify([hiraganaTemp])).length == 2) {
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
             this.kanaIdx++;
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
             this.kanaIdx++;
             hiraganaTemp = "";
-          } else if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 1) {
+          } else if (hiraganaMaps.get(JSON.stringify([hiraganaTemp])) && hiraganaMaps.get(JSON.stringify([hiraganaTemp])).length == 1) {
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
             this.kanaIdx++;
             hiraganaTemp = "";
-          } else if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 3) {
+          } else if (hiraganaMaps.get(JSON.stringify([hiraganaTemp])) && hiraganaMaps.get(JSON.stringify([hiraganaTemp])).length == 3) {
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
             this.kanaIdx++;
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
@@ -110,17 +114,17 @@ const parser = {
               this.idx1,
               this.idx2
             );
-            if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 2) {
+            if (hiraganaMaps.get(JSON.stringify([hiraganaTemp])) && hiraganaMaps.get(JSON.stringify([hiraganaTemp])).length == 2) {
               hiranagaSentence.innerHTML = this.colorTypedJapanese();
               this.kanaIdx++;
               hiranagaSentence.innerHTML = this.colorTypedJapanese();
               this.kanaIdx++;
               hiraganaTemp = "";
-            } else if ( hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 1) {
+            } else if ( hiraganaMaps.get(JSON.stringify([hiraganaTemp])) && hiraganaMaps.get(JSON.stringify([hiraganaTemp])).length == 1) {
               hiranagaSentence.innerHTML = this.colorTypedJapanese();
               this.kanaIdx++;
               hiraganaTemp = "";
-            } else if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) &&hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 3
+            } else if (hiraganaMaps.get(JSON.stringify([hiraganaTemp])) &&hiraganaMaps.get(JSON.stringify([hiraganaTemp])).length == 3
             ) {
               hiranagaSentence.innerHTML = this.colorTypedJapanese();
               this.kanaIdx++;
@@ -165,7 +169,7 @@ const parser = {
             temp = "";
             parsedData = temp;
             parsedData = null;
-            randomNum = Math.floor(Math.random() * text2.length); // 0からtext2.length-1までの乱数を生成
+            const randomNum = Math.floor(Math.random() * text2.length); // 0からtext2.length-1までの乱数を生成
             sentenceJP.textContent = text1[randomNum];
             hiranagaSentence.textContent = text2[randomNum];
             parsedData = this.build(text2[randomNum]);
@@ -181,8 +185,8 @@ const parser = {
   },
   colorTypedJapanese: function () {
     const hiranagaSentence = document.getElementById("hiragana");
-    str = hiranagaSentence.textContent;
-    html = "";
+    let str = hiranagaSentence.textContent;
+    let html = "";
     html +=
       "<span class='typed'>" +
       str.slice(0, this.kanaIdx + 1) +
@@ -218,3 +222,5 @@ const parser = {
     this.text2 = text2;
   },
 };
+
+export { parser }

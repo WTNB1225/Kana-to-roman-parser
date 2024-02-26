@@ -1,9 +1,9 @@
 # ローマ字複数入力対応ライブラリ
 
-#インストール
+# インストール
 
 ```sh
-npm install --save Kana-to-roman-parser
+npm install --save kana-to-roman-parser
 ```
 
 ### 使用方法
