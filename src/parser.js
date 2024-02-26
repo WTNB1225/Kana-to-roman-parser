@@ -1,3 +1,4 @@
+const hiranagaMap = hiranagaMaps();
 const parser = {
   build: function (hiragana) {
     let three_letter;
@@ -39,87 +40,38 @@ const parser = {
     this.idx2 = 0;
     this.kanaIdx = 0;
     let temp = "";
+    let hiraganaTemp = "";
     document.addEventListener("keydown", (event) => {
-      const nextChar =
-        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 1];
-      const secondNextChar =
-        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 2];
-      const prevChar =
-        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 - 1];
-      const secondPrevChar =
-        parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 - 2];
       let key = event.key;
+      const nextChar = parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 1];
+      const secondNextChar = parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 2];
+      const prevChar = parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 - 1];
       if (key == "Escape") {
+        //エスケープキーが押されたときの処理
       } else {
         temp += key;
+        hiraganaTemp += key;
         if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
-          sentence.innerHTML = this.colorTypedRoma(
-            parsedData,
-            this.pattern,
-            this.idx1,
-            this.idx2
-          );
-          if (
-            key == "a" ||
-            key == "i" ||
-            key == "u" ||
-            key == "e" ||
-            key == "o" ||
-            key == "," ||
-            key == "." ||
-            key == " " ||
-            key == "-"
-          ) {
-            if (
-              prevChar !== "a" &&
-              prevChar !== "i" &&
-              prevChar !== "u" &&
-              prevChar !== "e" &&
-              prevChar !== "o" &&
-              (secondPrevChar == "l" || secondPrevChar == "x")
-            ) {
-              hiranagaSentence.innerHTML = this.colorTypedJapanese();
-              this.kanaIdx++;
-              console.log("1");
-            } else if(prevChar !== "a") {
-
-            }else if (
-              prevChar !== "a" &&
-              prevChar !== "i" &&
-              prevChar !== "u" &&
-              prevChar !== "e" &&
-              prevChar !== "o" &&
-              secondPrevChar !== "a" &&
-              secondPrevChar !== "i" &&
-              secondPrevChar !== "u" &&
-              secondPrevChar !== "e" &&
-              secondPrevChar !== "o" &&
-              prevChar !== undefined &&
-              secondPrevChar !== undefined
-            ) {
-              hiranagaSentence.innerHTML = this.colorTypedJapanese();
-              this.kanaIdx++;
-              hiranagaSentence.innerHTML = this.colorTypedJapanese();
-              this.kanaIdx++;
-              console.log("2");
-            } else {
-              hiranagaSentence.innerHTML = this.colorTypedJapanese();
-              this.kanaIdx++;
-              console.log("3");
-            }
-          } else if (
-            key == "n" &&
-            parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 - 1] == "n"
-          ) {
+          sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2);
+          if ( hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 2) {
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
             this.kanaIdx++;
-            console.log("4");
-          } else if (key == "n" && prevChar == "x") {
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
             this.kanaIdx++;
-            console.log("5");
-          } else if (
-            key == "n" &&
+            hiraganaTemp = "";
+          } else if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 1) {
+            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+            this.kanaIdx++;
+            hiraganaTemp = "";
+          } else if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 3) {
+            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+            this.kanaIdx++;
+            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+            this.kanaIdx++;
+            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+            this.kanaIdx++;
+            hiraganaTemp = "";
+          } else if (key == "n" &&
             !(
               nextChar === "a" ||
               nextChar === "i" ||
@@ -135,7 +87,9 @@ const parser = {
           ) {
             hiranagaSentence.innerHTML = this.colorTypedJapanese();
             this.kanaIdx++;
-            console.log("6");
+            hiraganaTemp = "";
+          } else if (key == "n" && prevChar == "n") {
+            hiraganaTemp = "";
           }
           this.idx2++;
           // 正しいキーが押されたときの処理
@@ -156,58 +110,53 @@ const parser = {
               this.idx1,
               this.idx2
             );
-            if (
-              key == "a" ||
-              key == "i" ||
-              key == "u" ||
-              key == "e" ||
-              key == "o" ||
-              key == "," ||
-              key == "." ||
-              key == " " ||
-              key == "-"
-            ) {
-              if (
-                prevChar !== "a" &&
-                prevChar !== "i" &&
-                prevChar !== "u" &&
-                prevChar !== "e" &&
-                prevChar !== "o" &&
-                secondPrevChar !== "a" &&
-                secondPrevChar !== "i" &&
-                secondPrevChar !== "u" &&
-                secondPrevChar !== "e" &&
-                secondPrevChar !== "o" &&
-                prevChar !== undefined &&
-                secondPrevChar !== undefined
-              ) {
-                hiranagaSentence.innerHTML = this.colorTypedJapanese();
-                this.kanaIdx++;
-                hiranagaSentence.innerHTML = this.colorTypedJapanese();
-                this.kanaIdx++;
-                console.log("7");
-              } else {
-                hiranagaSentence.innerHTML = this.colorTypedJapanese();
-                this.kanaIdx++;
-                console.log("8");
-              }
-            } else if (
-              key == "n" &&
-              parsedData[this.idx1][this.pattern[this.idx1]][this.idx2 + 1] ==
-                "n"
+            if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 2) {
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              hiraganaTemp = "";
+            } else if ( hiranagaMap.get(JSON.stringify([hiraganaTemp])) && hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 1) {
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              hiraganaTemp = "";
+            } else if (hiranagaMap.get(JSON.stringify([hiraganaTemp])) &&hiranagaMap.get(JSON.stringify([hiraganaTemp])).length == 3
             ) {
               hiranagaSentence.innerHTML = this.colorTypedJapanese();
               this.kanaIdx++;
-              console.log("9");
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              hiraganaTemp = "";
+            } else if (
+              key == "n" &&
+              !(
+                nextChar === "a" ||
+                nextChar === "i" ||
+                nextChar === "u" ||
+                nextChar === "e" ||
+                nextChar === "o"
+              ) &&
+              (secondNextChar === "a" ||
+                secondNextChar === "i" ||
+                secondNextChar === "u" ||
+                secondNextChar === "e" ||
+                secondNextChar === "o")
+            ) {
+              hiranagaSentence.innerHTML = this.colorTypedJapanese();
+              this.kanaIdx++;
+              hiraganaTemp = "";
+            } else if (key == "n" && prevChar == "n") {
+              hiraganaTemp = "";
             }
             this.idx2++;
           } else {
+            hiraganaTemp = "";
             temp = temp.slice(0, -1);
           }
         }
-        if (
-          this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length
-        ) {
+        if (this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length) {
           if (this.idx1 == parsedData.length - 1) {
             sentence.innerHTML = "";
             this.idx1 = 0;
