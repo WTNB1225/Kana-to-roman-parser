@@ -59,8 +59,8 @@ var parser = {
             }
             else {
                 temp += key;
-                hiraganaTemp += key;
                 if (key == parsedData[_this.idx1][_this.pattern[_this.idx1]][_this.idx2]) {
+                    hiraganaTemp += key;
                     if (sentence) {
                         sentence.innerHTML = _this.colorTypedRoma(parsedData, _this.pattern, _this.idx1, _this.idx2);
                     }
@@ -126,6 +126,7 @@ var parser = {
                         }
                     }
                     if (key == parsedData[_this.idx1][_this.pattern[_this.idx1]][_this.idx2]) {
+                        hiraganaTemp += key;
                         if (sentence) {
                             sentence.innerHTML = _this.colorTypedRoma(parsedData, _this.pattern, _this.idx1, _this.idx2);
                         }
@@ -182,7 +183,6 @@ var parser = {
                         _this.idx2++;
                     }
                     else {
-                        hiraganaTemp = "";
                         temp = temp.slice(0, -1);
                     }
                 }
