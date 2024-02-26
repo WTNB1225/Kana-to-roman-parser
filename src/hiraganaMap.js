@@ -436,6 +436,8 @@ const hiraganaMap = [
   { char: "`", keys: ["`"] },
   { char: "?", keys: ["?"] },
 ];
+
+//連想配列に変換
 const hiranagaMaps = () => {
   const hiraganaMappingData = new Map();
   hiraganaMap.forEach((value) => {

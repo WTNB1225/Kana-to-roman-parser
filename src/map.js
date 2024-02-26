@@ -6125,6 +6125,7 @@ const data = {
   ],
 };
 
+//連想配列に変換
 const maps = () => {
   const mappingData = new Map();
   data.data.forEach((value) => {
