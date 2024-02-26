@@ -1,27 +1,19 @@
 {
   "name": "kana-to-roman-parser",
-  "version": "1.0.1",
-  "description": "タイピングゲームでローマ字の複数入力パターンに対応するライブラリ",
-  "main": "index.js",
+  "version": "1.0.0",
+  "description": "タイピングゲームのローマ字複数入力を判定するライブラリ",
+  "main": "parser.js",
   "type": "module",
+  "dependencies": {
+    "typescript": "^5.3.3"
+  },
   "scripts": {
     "test": "test"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WTNB1225/Kana-to-roman-parser.git"
-  },
   "keywords": [
-    "タイピング",
-    "ローマ字"
+    "ローマ字",
+    "タイピング"
   ],
   "author": "wtnbjp",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/WTNB1225/Kana-to-roman-parser/issues"
-  },
-  "homepage": "https://github.com/WTNB1225/Kana-to-roman-parser#readme",
-  "dependencies": {
-    "typescript": "^5.3.3"
-  }
+  "license": "MIT"
 }
