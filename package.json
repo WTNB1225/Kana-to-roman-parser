@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/WTNB1225/Kana-to-roman-parser/issues"
   },
-  "homepage": "https://github.com/WTNB1225/Kana-to-roman-parser#readme"
+  "homepage": "https://github.com/WTNB1225/Kana-to-roman-parser#readme",
+  "dependencies": {
+    "typescript": "^5.3.3"
+  }
 }
