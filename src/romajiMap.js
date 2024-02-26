@@ -6126,10 +6126,12 @@ const data = {
 };
 
 //連想配列に変換
-const maps = () => {
+const romajiMap = () => {
   const mappingData = new Map();
   data.data.forEach((value) => {
     mappingData.set(value.Pattern, value.TypePattern);
   });
   return mappingData;
 };
+
+export { romajiMap }

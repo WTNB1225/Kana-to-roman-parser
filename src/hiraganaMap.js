@@ -1,4 +1,4 @@
-const hiraganaMap = [
+const maps = [
   // 三文字コード
   { char: "っうぁ", keys: ["wwha"] },
   { char: "っうぃ", keys: ["wwhi"] },
@@ -438,9 +438,9 @@ const hiraganaMap = [
 ];
 
 //連想配列に変換
-const hiranagaMaps = () => {
+const hiraganaMap = () => {
   const hiraganaMappingData = new Map();
-  hiraganaMap.forEach((value) => {
+  maps.forEach((value) => {
     if (value.keys.length > 1) {
       for (let key of value.keys) {
         hiraganaMappingData.set(JSON.stringify([key]), value.char);
@@ -449,6 +449,7 @@ const hiranagaMaps = () => {
       hiraganaMappingData.set(JSON.stringify(value.keys), value.char);
     }
   });
-  console.log(hiraganaMappingData);
   return hiraganaMappingData;
 };
+
+export { hiraganaMap }
