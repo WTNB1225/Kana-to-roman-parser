@@ -150,7 +150,7 @@ const text2 = [
   "せかいはたようできょうみぶかいひとびとであふれています",
   "ほしはよぞらできらめいています",
   "ぽじてぃぶなしこうがせいこうにつながります",
-  "かおばしいこーひーのかおりはげんきをあたえてくれます",
+  "こうばしいこーひーのかおりはげんきをあたえてくれます",
   "いちごいちえのじんせいをたいせつにしましょう",
   "かのじょはすてきなえがおをもっています",
   "たいせつなひととすごすじかんをたのしんでいます",
@@ -209,9 +209,10 @@ import {parser} from "./parser.js"
 
 const sentenceJP = document.getElementById("sentenceJP");
 const hiragana = document.getElementById("hiragana");
+const randomNum = Math.floor(Math.random() * text1.length); //ランダムな数字を生成
 //最初は自分で文章をセットする必要がある
 parser.setData(text1, text2);
-sentenceJP.textContent = text1[text1.length - 1]; //漢字の文章をセット
-hiragana.textContent = text2[text1.length - 1]; //ひらがなの文章をセット
+sentenceJP.textContent = text1[randomNum]; //漢字の文章をセット
+hiragana.textContent = text2[randomNum]; //ひらがなの文章をセット
 //文章をセット
-parser.check(parser.build(text2[text1.length - 1])); //ひらがなの文章をセット
+parser.check(parser.build(text2[randomNum])); //ひらがなの文章をセット
