@@ -1,2 +1,2 @@
-sample/*
-src/*
+/node_modules
+/sample/*
