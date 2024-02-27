@@ -1,13 +1,15 @@
 "use strict";
-import { hiraganaMap as hiraganaMapFunction } from "./hiraganaMap.js";
-import { romajiMap } from "./romajiMap.js";
-const hiraganaMaps = hiraganaMapFunction();
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.parser = void 0;
+var hiraganaMap_js_1 = require("./hiraganaMap.js");
+var romajiMap_js_1 = require("./romajiMap.js");
+var hiraganaMaps = (0, hiraganaMap_js_1.hiraganaMap)();
 var parser = {
     build: function (hiragana) {
         var three_letter;
         var two_letter;
         var one_letter;
-        var map = romajiMap();
+        var map = (0, romajiMap_js_1.romajiMap)();
         var parsedData = [];
         for (var i = 0; i < hiragana.length; i++) {
             three_letter = hiragana.slice(i, i + 3);
@@ -59,8 +61,8 @@ var parser = {
             }
             else {
                 temp += key;
-                hiraganaTemp += key;
                 if (key == parsedData[_this.idx1][_this.pattern[_this.idx1]][_this.idx2]) {
+                    hiraganaTemp += key;
                     if (sentence) {
                         sentence.innerHTML = _this.colorTypedRoma(parsedData, _this.pattern, _this.idx1, _this.idx2);
                     }
@@ -92,6 +94,8 @@ var parser = {
                         }
                     }
                     else if (key == "n" && (_this.prevChar == "n" || _this.prevChar == "")) {
+                        _this.prevChar = key;
+                        hiraganaTemp = "";
                     }
                     else if (key == "n" &&
                         !(nextChar === "a" ||
@@ -126,8 +130,9 @@ var parser = {
                         }
                     }
                     if (key == parsedData[_this.idx1][_this.pattern[_this.idx1]][_this.idx2]) {
+                        hiraganaTemp += key;
                         if (sentence) {
-                            sentence.innerHTML = _this.colorTypedRoma(parsedData, _this.pattern, _this.idx1, _this.idx);
+                            sentence.innerHTML = _this.colorTypedRoma(parsedData, _this.pattern, _this.idx1, _this.idx2);
                         }
                         if (hiraganaMaps.get(JSON.stringify(hiraganaTemp)) && ((_d = hiraganaMaps.get(JSON.stringify(hiraganaTemp))) === null || _d === void 0 ? void 0 : _d.length) == 2) {
                             if (hiranagaSentence) {
@@ -157,6 +162,8 @@ var parser = {
                             }
                         }
                         else if (key == "n" && (_this.prevChar == "n" || _this.prevChar == "")) {
+                            _this.prevChar = key;
+                            hiraganaTemp = "";
                         }
                         else if (key == "n" &&
                             !(nextChar === "a" ||
@@ -182,7 +189,6 @@ var parser = {
                         _this.idx2++;
                     }
                     else {
-                        hiraganaTemp = "";
                         temp = temp.slice(0, -1);
                     }
                 }
@@ -254,4 +260,4 @@ var parser = {
         this.text2 = text2;
     },
 };
-export {parser}
+exports.parser = parser;
