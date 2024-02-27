@@ -1,9 +1,8 @@
 {
   "name": "kana-to-roman-parser",
-  "version": "1.0.0",
+  "version": "1.0.4",
   "description": "タイピングゲームのローマ字複数入力を判定するライブラリ",
-  "main": "parser.js",
-  "type": "module",
+  "main": "index.js",
   "dependencies": {
     "typescript": "^5.3.3"
   },
