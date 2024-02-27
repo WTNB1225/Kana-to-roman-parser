@@ -1,2 +1,1 @@
-import { parser } from "./src/parser.js";
-export { parser };
+const parser = require("typescript/parser")
