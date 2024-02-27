@@ -69,8 +69,8 @@ const parser: Parser = {
         //エスケープキーが押されたときの処理
       } else {
         temp += key;
-        hiraganaTemp += key;
         if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
+          hiraganaTemp += key;
           if (sentence){
             sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2);
           }
@@ -99,6 +99,8 @@ const parser: Parser = {
               hiraganaTemp = "";
             }
           }else if(key == "n" && (this.prevChar == "n" || this.prevChar == "")) {
+            this.prevChar = key;
+            hiraganaTemp = "";
           } else if (key == "n" &&
             !(
               nextChar === "a" ||
@@ -135,6 +137,7 @@ const parser: Parser = {
           if (
             key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]
           ) {
+            hiraganaTemp += key;
             if (sentence) {
               sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2 );
             }
@@ -164,6 +167,8 @@ const parser: Parser = {
                 hiraganaTemp = "";  
               }
             }else if(key == "n" && (this.prevChar == "n" || this.prevChar == "")) {
+              this.prevChar = key;
+              hiraganaTemp = "";
             } else if (
               key == "n" &&
               !(
@@ -190,7 +195,6 @@ const parser: Parser = {
             this.prevChar = key;
             this.idx2++;
           } else {
-            hiraganaTemp = "";
             temp = temp.slice(0, -1);
           }
         }

@@ -53,7 +53,7 @@ var parser = {
             var _a, _b, _c, _d, _e, _f;
             var key = event.key;
             var nextChar = parsedData[_this.idx1][_this.pattern[_this.idx1]][_this.idx2 + 1];
-            var secondNextChar = parsedData[_this.idx1][_this.pattern[_this.idx1]][_this.idx2 + 2];
+            var secondNextChar = parsedData[_this.idx1][_this.pattern[_this.idx1]][_this.idx2 + 2]
             if (key == "Escape") {
                 //エスケープキーが押されたときの処理
             }
@@ -92,6 +92,8 @@ var parser = {
                         }
                     }
                     else if (key == "n" && (_this.prevChar == "n" || _this.prevChar == "")) {
+                        this.prevChar = key;
+                        hiraganaTemp = "";
                     }
                     else if (key == "n" &&
                         !(nextChar === "a" ||
@@ -158,6 +160,8 @@ var parser = {
                             }
                         }
                         else if (key == "n" && (_this.prevChar == "n" || _this.prevChar == "")) {
+                            this.prevChar = key;
+                            hiraganaTemp = "";
                         }
                         else if (key == "n" &&
                             !(nextChar === "a" ||
@@ -206,6 +210,7 @@ var parser = {
                         _this.idx1++;
                         _this.idx2 = 0;
                         temp = "";
+                        hiraganaTemp = "";
                     }
                 }
             }
