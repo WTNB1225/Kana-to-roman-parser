@@ -16,5 +16,5 @@ declare module "hiragana-romazi-parser" {
     colorTypedRoma: (parsedData: string[][], pattern: string[], idx1: number, idx2: number) => string;
     setData: (text1: string[], text2: string[]) => void;
   }
-  export default Parser;
+  export default parser;
 }
