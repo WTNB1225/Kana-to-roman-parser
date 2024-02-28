@@ -1,8 +1,9 @@
 {
-  "name": "kana-to-roman-parser",
-  "version": "1.0.6",
-  "description": "タイピングゲームのローマ字複数入力を判定するライブラリ",
+  "name": "hiragana-romazi-parser",
+  "version": "1.0.0",
+  "description": "Reactに対応したタイピングゲームのローマ字複数入力を判定するライブラリ",
   "main": "index.js",
+  "types": "index.d.ts",
   "dependencies": {
     "typescript": "^5.3.3"
   },

@@ -1,4 +1,4 @@
-declare module "kata-to-roman-parser" {
+declare module "hiragana-romazi-parser" {
   export interface Parser {
     text1: string[];
     text2: string[];
@@ -7,11 +7,14 @@ declare module "kata-to-roman-parser" {
     idx2: number;
     prevChar: string;
     parsedData: string[][];
+    hiraganaTemp: string;
+    temp: string;
     build: (text: string) => string[][];
+    check: (parsedData: string[][]) => void;
+    isFinished: (parsedData: string[][]) => boolean;
     colorTypedJapanese: () => string | void;
     colorTypedRoma: (parsedData: string[][], pattern: string[], idx1: number, idx2: number) => string;
     setData: (text1: string[], text2: string[]) => void;
   }
-  const parser: Parser;
-  export default parser;
+  export default Parser;
 }

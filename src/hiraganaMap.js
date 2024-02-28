@@ -1,4 +1,6 @@
 "use strict";
+const __esModule = true;
+var hiraganaMap = void 0;
 var maps = [
     // 三文字コード
     { char: "っうぁ", keys: ["wwha"] },
@@ -454,4 +456,4 @@ var hiraganaMap = function () {
     });
     return hiraganaMappingData;
 };
-export { hiraganaMap }
+export default hiraganaMap;
