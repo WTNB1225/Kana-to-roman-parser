@@ -102,12 +102,12 @@ const parser: Parser = {
             this.prevChar = key;
             hiraganaTemp = "";
           } else if (key == "n" &&
-            !(
-              nextChar === "a" ||
-              nextChar === "i" ||
-              nextChar === "u" ||
-              nextChar === "e" ||
-              nextChar === "o"
+            (
+              nextChar !== "a" &&
+              nextChar !== "i" &&
+              nextChar !== "u" &&
+              nextChar !== "e" &&
+              nextChar !== "o"
             ) &&
             (secondNextChar === "a" ||
               secondNextChar === "i" ||
@@ -171,12 +171,12 @@ const parser: Parser = {
               hiraganaTemp = "";
             } else if (
               key == "n" &&
-              !(
-                nextChar === "a" ||
-                nextChar === "i" ||
-                nextChar === "u" ||
-                nextChar === "e" ||
-                nextChar === "o"
+              (
+                nextChar !== "a" &&
+                nextChar !== "i" &&
+                nextChar !== "u" &&
+                nextChar !== "e" &&
+                nextChar !== "o"
               ) &&
               (secondNextChar === "a" ||
                 secondNextChar === "i" ||

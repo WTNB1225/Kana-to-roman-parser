@@ -98,11 +98,11 @@ var parser = {
                         hiraganaTemp = "";
                     }
                     else if (key == "n" &&
-                        !(nextChar === "a" ||
-                            nextChar === "i" ||
-                            nextChar === "u" ||
-                            nextChar === "e" ||
-                            nextChar === "o") &&
+                        (nextChar !== "a" &&
+                            nextChar !== "i" &&
+                            nextChar !== "u" &&
+                            nextChar !== "e" &&
+                            nextChar !== "o") &&
                         (secondNextChar === "a" ||
                             secondNextChar === "i" ||
                             secondNextChar === "u" ||
@@ -166,11 +166,11 @@ var parser = {
                             hiraganaTemp = "";
                         }
                         else if (key == "n" &&
-                            !(nextChar === "a" ||
-                                nextChar === "i" ||
-                                nextChar === "u" ||
-                                nextChar === "e" ||
-                                nextChar === "o") &&
+                            (nextChar !== "a" &&
+                                nextChar !== "i" &&
+                                nextChar !== "u" &&
+                                nextChar !== "e" &&
+                                nextChar !== "o") &&
                             (secondNextChar === "a" ||
                                 secondNextChar === "i" ||
                                 secondNextChar === "u" ||
