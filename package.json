@@ -1,6 +1,6 @@
 {
   "name": "hiragana-romazi-parser",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Reactに対応したタイピングゲームのローマ字複数入力を判定するライブラリ",
   "main": "index.js",
   "types": "index.d.ts",
@@ -13,7 +13,8 @@
   },
   "keywords": [
     "ローマ字",
-    "タイピング"
+    "タイピング",
+    "ひらがな"
   ],
   "author": "wtnbjp",
   "license": "MIT"
