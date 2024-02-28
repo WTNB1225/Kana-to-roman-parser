@@ -1,4 +1,6 @@
 "use strict";
+const __esModule = true;
+var romajiMap = void 0;
 var data = {
     data: [
         {
@@ -6132,4 +6134,4 @@ var romajiMap = function () {
     });
     return mappingData;
 };
-export {romajiMap}
+export default romajiMap;
