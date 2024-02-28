@@ -1,6 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.hiraganaMap = void 0;
+const __esModule = true;
+var hiraganaMap = void 0;
 var maps = [
     // 三文字コード
     { char: "っうぁ", keys: ["wwha"] },
@@ -456,4 +456,4 @@ var hiraganaMap = function () {
     });
     return hiraganaMappingData;
 };
-exports.hiraganaMap = hiraganaMap;
+export default hiraganaMap;
