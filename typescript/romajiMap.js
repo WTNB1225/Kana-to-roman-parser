@@ -1,6 +1,6 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.romajiMap = void 0;
+const __esModule = true;
+var romajiMap = void 0;
 var data = {
     data: [
         {
@@ -6134,4 +6134,4 @@ var romajiMap = function () {
     });
     return mappingData;
 };
-exports.romajiMap = romajiMap;
+export default romajiMap;

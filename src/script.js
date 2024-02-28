@@ -1,3 +1,4 @@
+import Parser from "../typescript/parser.js"
 const text1 = [
   "今日は晴れています",
   "私は日本料理が好きです",
@@ -205,14 +206,24 @@ const text2 = [
   "せかいはよりおおくのおもいやりとりかいをひつようとしています",
 ];
 
-import {parser} from "./parser.js"
 
 const sentenceJP = document.getElementById("sentenceJP");
 const hiragana = document.getElementById("hiragana");
 const randomNum = Math.floor(Math.random() * text1.length); //ランダムな数字を生成
+
+let parser = new Parser();
 //最初は自分で文章をセットする必要がある
 parser.setData(text1, text2);
 sentenceJP.textContent = text1[randomNum]; //漢字の文章をセット
 hiragana.textContent = text2[randomNum]; //ひらがなの文章をセット
-//文章をセット
-parser.check(parser.build(text2[randomNum])); //ひらがなの文章をセット
+let data = parser.build(text2[randomNum]);
+document.onkeydown = (e) => {
+  console.log(data)
+  parser.check(data, e.key); //ひらがなの文章をセット
+  if(parser.isFinished()){ 
+    const randomNum = Math.floor(Math.random() * text1.length); //ランダムな数字を生成
+    data = parser.build(text2[randomNum])
+    sentenceJP.textContent = text1[randomNum]; //漢字の文章をセット
+    hiragana.textContent = text2[randomNum]; //ひらがなの文章をセット
+  }
+}
