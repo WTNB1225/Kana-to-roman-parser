@@ -106,7 +106,6 @@ class Parser {
             }
           }else if(key == "n" && (this.prevChar == "n" || this.prevChar == "")) {
             this.prevChar = key;
-            this.hiraganaTemp = "";
           } else if (key == "n" &&
             (
               nextChar !== "a" &&
