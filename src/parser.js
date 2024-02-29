@@ -99,7 +99,6 @@ var Parser = /** @class */ (function () {
                 }
                 else if (key == "n" && (this.prevChar == "n" || this.prevChar == "")) {
                     this.prevChar = key;
-                    this.hiraganaTemp = "";
                 }
                 else if (key == "n" &&
                     (nextChar !== "a" &&
@@ -270,5 +269,4 @@ var Parser = /** @class */ (function () {
     };
     return Parser;
 }());
-
 export default Parser;
