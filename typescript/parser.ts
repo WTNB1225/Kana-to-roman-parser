@@ -3,16 +3,19 @@ import { romajiMap } from "./romajiMap.js";
 const hiraganaMaps = hiraganaMapFunction();
 
 class Parser {
-  pattern?: number[];
-  idx1?: number;
-  idx2?: number;
-  kanaIdx?: number;
-  text1?: string[];
-  text2?: string[];
-  prevChar?: string;
-  parsedData?: string[][];
-  temp?: string;  
-  hiraganaTemp?: string;
+  pattern: number[];
+  idx1: number;
+  idx2: number;
+  kanaIdx: number;
+  text1: string[];
+  text2: string[];
+  prevChar: string;
+  parsedData: string[][];
+  temp: string;  
+  hiraganaTemp: string;
+  charCorrect: number;
+  charMissed: number;
+  sentenceCorrect: number;
 
   constructor() {
     this.pattern = [];
@@ -23,7 +26,9 @@ class Parser {
     this.parsedData;
     this.temp = "";
     this.hiraganaTemp = "";
-    
+    this.charCorrect = 0;
+    this.charMissed = 0;
+    this.sentenceCorrect = 0;
   }
   build(hiragana: string): string[][] {
     let three_letter: string;
@@ -61,43 +66,42 @@ class Parser {
     return this.parsedData;
   }
 
-  check(parsedData: string[][], key: string): void {
+  check(parsedData: string[][], key: string): boolean | void {
     const sentence = document.getElementById("sentence");
-    const sentenceJP = document.getElementById("sentenceJP");
     const hiranagaSentence = document.getElementById("hiragana");
     let tempIdx = this.idx2
-      const nextChar = parsedData[this.idx1!][this.pattern![this.idx1!]][tempIdx! + 1];
+      const nextChar = parsedData[this.idx1][this.pattern[this.idx1]][tempIdx + 1];
       if (key == "Escape") {
         //エスケープキーが押されたときの処理
       } else {
         this.temp += key;
-        if (key == parsedData[this.idx1!][this.pattern![this.idx1!]][this.idx2!]) {
+        if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
           this.hiraganaTemp += key;
           if (sentence){
-            sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern!, this.idx1!, this.idx2!)!;
+            sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2) || "";
           }
           if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))?.length == 2) {
             if(hiranagaSentence) {
-              hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-              this.kanaIdx!++;
-              hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-              this.kanaIdx!++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+              this.kanaIdx++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+              this.kanaIdx++;
               this.hiraganaTemp = "";
             }
           } else if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))?.length == 1) {
             if(hiranagaSentence) {
-              hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-              this.kanaIdx!++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+              this.kanaIdx++;
               this.hiraganaTemp = "";
             }
           } else if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))?.length == 3) {
             if(hiranagaSentence) {
-              hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-              this.kanaIdx!++;
-              hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-              this.kanaIdx!++;
-              hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-              this.kanaIdx!++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+              this.kanaIdx++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+              this.kanaIdx++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+              this.kanaIdx++;
               this.hiraganaTemp = "";
             }
           }else if(key == "n" && (this.prevChar == "n" || this.prevChar == "")) {
@@ -114,54 +118,58 @@ class Parser {
             )
           ) {
             if(hiranagaSentence) {
-              hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-              this.kanaIdx!++;
+              hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+              this.kanaIdx++;
               this.hiraganaTemp = "";
             }
           } else if (key == "n" && this.prevChar == "n") {
             this.hiraganaTemp = "";
           }
           this.prevChar = key;
-          this.idx2!++;
+          this.idx2++;
+          this.charCorrect++;
+          if(this.idx2 !== this.parsedData[this.idx1][this.pattern[this.idx1]].length) {
+            return true;
+          }
           // 正しいキーが押されたときの処理
         } else {
           let reg = new RegExp("^" + this.temp);
-          for (let i = 0; i < parsedData[this.idx1!].length; i++) {
-            if (!!parsedData[this.idx1!][i].match(reg)) {
-              this.pattern![this.idx1!] = i;
+          for (let i = 0; i < parsedData[this.idx1].length; i++) {
+            if (parsedData[this.idx1][i].match(reg)) {
+              this.pattern[this.idx1] = i;
               break;
             }
           }
           if (
-            key == parsedData[this.idx1!][this.pattern![this.idx1!]][this.idx2!]
+            key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]
           ) {
             this.hiraganaTemp += key;
             if (sentence) {
-              sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern!, this.idx1!, this.idx2!)!;
+              sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2) || "";
             }
             if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))?.length == 2) {
               if(hiranagaSentence) {
-                hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-                this.kanaIdx!++;
-                hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-                this.kanaIdx!++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+                this.kanaIdx++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+                this.kanaIdx++;
                 this.hiraganaTemp = "";
               }
             } else if ( hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))?.length == 1) {
               if(hiranagaSentence) {
-                hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-                this.kanaIdx!++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+                this.kanaIdx++;
                 this.hiraganaTemp = "";
               }
             } else if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) &&hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))?.length == 3
             ) {
               if(hiranagaSentence) {
-                hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-                this.kanaIdx!++;
-                hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-                this.kanaIdx!++;
-                hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-                this.kanaIdx!++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+                this.kanaIdx++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+                this.kanaIdx++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+                this.kanaIdx++;
                 this.hiraganaTemp = "";  
               }
             }else if(key == "n" && (this.prevChar == "n" || this.prevChar == "")) {
@@ -179,36 +187,29 @@ class Parser {
               ) 
             ) {
               if(hiranagaSentence) {
-                hiranagaSentence.innerHTML = this.colorTypedJapanese()!;
-                this.kanaIdx!++;
+                hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
+                this.kanaIdx++;
                 this.hiraganaTemp = "";
               }
             } else if (key == "n" && this.prevChar == "n") {
               this.hiraganaTemp = "";
             }
             this.prevChar = key;
-            this.idx2!++;
-          } else {
-            this.temp = this.temp!.slice(0, -1);
-          }
-        }
-        if (this.idx2 == parsedData[this.idx1!][this.pattern![this.idx1!]].length) {
-          if (this.idx1 == parsedData.length - 1) {
-            if(sentence && hiranagaSentence && sentenceJP && parsedData) {
-              sentence.innerHTML = "";
-              this.idx1 = 0;
-              this.idx2 = 0;
-              this.kanaIdx = 0;
-              this.temp = "";
-              this.prevChar = "";
-              parsedData = []; // Assign an empty array instead of null
-              const randomNum = Math.floor(Math.random() * this.text2!.length); // 0からtext2.length-1までの乱数を生成
-              sentenceJP.textContent = this.text1![randomNum];
-              hiranagaSentence.textContent = this.text2![randomNum];
-              parsedData = this.build(this.text2![randomNum]);
+            this.idx2++;
+            this.charCorrect++;
+            if(this.idx2 !== this.parsedData[this.idx1][this.pattern[this.idx1]].length) {
+              return true;
             }
           } else {
-            this.idx1!++;
+            this.temp = this.temp.slice(0, -1);
+            this.charMissed++;
+          }
+        }
+        if (this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length) {
+          if (this.idx1 == parsedData.length - 1) {
+            sentence!.innerHTML = "";
+          } else {
+            this.idx1++;
             this.idx2 = 0;
             this.temp = "";
           }
@@ -217,7 +218,7 @@ class Parser {
   }
 
   isFinished(): boolean {
-    if(this.idx2 == this.parsedData![this.idx1!][this.pattern![this.idx1!]].length && this.idx1 == this.parsedData!.length - 1) {
+    if(this.idx2 == this.parsedData[this.idx1][this.pattern[this.idx1]].length && this.idx1 == this.parsedData.length - 1) {
       this.idx1 = 0;
       this.idx2 = 0;
       this.temp = "";
@@ -226,6 +227,7 @@ class Parser {
       this.prevChar = "";
       this.pattern = [];
       this.parsedData = [];
+      this.sentenceCorrect++;
       return true;
     } else {
       return false;
@@ -240,10 +242,10 @@ class Parser {
     let html = "";
     html +=
       "<span class='typed'>" +
-      str.slice(0, this.kanaIdx! + 1) +
+      str.slice(0, this.kanaIdx + 1) +
       "</span>" +
       "<span>" +
-      str.slice(this.kanaIdx! + 1) +
+      str.slice(this.kanaIdx + 1) +
       "</span>";
     return html;
   }
