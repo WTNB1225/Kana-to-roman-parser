@@ -9,8 +9,11 @@ declare module "hiragana-romazi-parser" {
     parsedData: string[][];
     hiraganaTemp: string;
     temp: string;
+    charCorrect: number;
+    charMissed: number;
+    sentenceCorrect: number;
     build: (text: string) => string[][];
-    check: (parsedData: string[][]) => void;
+    check: (parsedData: string[][]) => boolean | void;
     isFinished: (parsedData: string[][]) => boolean;
     colorTypedJapanese: () => string | void;
     colorTypedRoma: (parsedData: string[][], pattern: string[], idx1: number, idx2: number) => string;

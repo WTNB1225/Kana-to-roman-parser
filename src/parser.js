@@ -1,4 +1,3 @@
-
 "use strict";
 var __esModule = true;
 var Parser = void 0;
@@ -15,6 +14,9 @@ var Parser = /** @class */ (function () {
         this.parsedData;
         this.temp = "";
         this.hiraganaTemp = "";
+        this.charCorrect = 0;
+        this.charMissed = 0;
+        this.sentenceCorrect = 0;
     }
     Parser.prototype.build = function (hiragana) {
         var three_letter;
@@ -55,7 +57,6 @@ var Parser = /** @class */ (function () {
     Parser.prototype.check = function (parsedData, key) {
         var _a, _b, _c, _d, _e, _f;
         var sentence = document.getElementById("sentence");
-        var sentenceJP = document.getElementById("sentenceJP");
         var hiranagaSentence = document.getElementById("hiragana");
         var tempIdx = this.idx2;
         var nextChar = parsedData[this.idx1][this.pattern[this.idx1]][tempIdx + 1];
@@ -67,31 +68,31 @@ var Parser = /** @class */ (function () {
             if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
                 this.hiraganaTemp += key;
                 if (sentence) {
-                    sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2);
+                    sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2) || "";
                 }
                 if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && ((_a = hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))) === null || _a === void 0 ? void 0 : _a.length) == 2) {
                     if (hiranagaSentence) {
-                        hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                        hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                         this.kanaIdx++;
-                        hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                        hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                         this.kanaIdx++;
                         this.hiraganaTemp = "";
                     }
                 }
                 else if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && ((_b = hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))) === null || _b === void 0 ? void 0 : _b.length) == 1) {
                     if (hiranagaSentence) {
-                        hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                        hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                         this.kanaIdx++;
                         this.hiraganaTemp = "";
                     }
                 }
                 else if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && ((_c = hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))) === null || _c === void 0 ? void 0 : _c.length) == 3) {
                     if (hiranagaSentence) {
-                        hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                        hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                         this.kanaIdx++;
-                        hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                        hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                         this.kanaIdx++;
-                        hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                        hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                         this.kanaIdx++;
                         this.hiraganaTemp = "";
                     }
@@ -108,7 +109,7 @@ var Parser = /** @class */ (function () {
                         nextChar !== "o" &&
                         nextChar !== "n")) {
                     if (hiranagaSentence) {
-                        hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                        hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                         this.kanaIdx++;
                         this.hiraganaTemp = "";
                     }
@@ -118,12 +119,16 @@ var Parser = /** @class */ (function () {
                 }
                 this.prevChar = key;
                 this.idx2++;
+                this.charCorrect++;
+                if (this.idx2 !== this.parsedData[this.idx1][this.pattern[this.idx1]].length) {
+                    return true;
+                }
                 // 正しいキーが押されたときの処理
             }
             else {
                 var reg = new RegExp("^" + this.temp);
                 for (var i = 0; i < parsedData[this.idx1].length; i++) {
-                    if (!!parsedData[this.idx1][i].match(reg)) {
+                    if (parsedData[this.idx1][i].match(reg)) {
                         this.pattern[this.idx1] = i;
                         break;
                     }
@@ -131,31 +136,31 @@ var Parser = /** @class */ (function () {
                 if (key == parsedData[this.idx1][this.pattern[this.idx1]][this.idx2]) {
                     this.hiraganaTemp += key;
                     if (sentence) {
-                        sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2);
+                        sentence.innerHTML = this.colorTypedRoma(parsedData, this.pattern, this.idx1, this.idx2) || "";
                     }
                     if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && ((_d = hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))) === null || _d === void 0 ? void 0 : _d.length) == 2) {
                         if (hiranagaSentence) {
-                            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                            hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                             this.kanaIdx++;
-                            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                            hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                             this.kanaIdx++;
                             this.hiraganaTemp = "";
                         }
                     }
                     else if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && ((_e = hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))) === null || _e === void 0 ? void 0 : _e.length) == 1) {
                         if (hiranagaSentence) {
-                            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                            hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                             this.kanaIdx++;
                             this.hiraganaTemp = "";
                         }
                     }
                     else if (hiraganaMaps.get(JSON.stringify(this.hiraganaTemp)) && ((_f = hiraganaMaps.get(JSON.stringify(this.hiraganaTemp))) === null || _f === void 0 ? void 0 : _f.length) == 3) {
                         if (hiranagaSentence) {
-                            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                            hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                             this.kanaIdx++;
-                            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                            hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                             this.kanaIdx++;
-                            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                            hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                             this.kanaIdx++;
                             this.hiraganaTemp = "";
                         }
@@ -172,7 +177,7 @@ var Parser = /** @class */ (function () {
                             nextChar !== "o" &&
                             nextChar !== "n")) {
                         if (hiranagaSentence) {
-                            hiranagaSentence.innerHTML = this.colorTypedJapanese();
+                            hiranagaSentence.innerHTML = this.colorTypedJapanese() || "";
                             this.kanaIdx++;
                             this.hiraganaTemp = "";
                         }
@@ -182,16 +187,19 @@ var Parser = /** @class */ (function () {
                     }
                     this.prevChar = key;
                     this.idx2++;
+                    this.charCorrect++;
+                    if (this.idx2 !== this.parsedData[this.idx1][this.pattern[this.idx1]].length) {
+                        return true;
+                    }
                 }
                 else {
                     this.temp = this.temp.slice(0, -1);
+                    this.charMissed++;
                 }
             }
             if (this.idx2 == parsedData[this.idx1][this.pattern[this.idx1]].length) {
                 if (this.idx1 == parsedData.length - 1) {
-                    if (sentence && hiranagaSentence && sentenceJP && parsedData) {
-                        sentence.innerHTML = "";
-                    }
+                    sentence.innerHTML = "";
                 }
                 else {
                     this.idx1++;
@@ -201,7 +209,6 @@ var Parser = /** @class */ (function () {
             }
         }
     };
-
     Parser.prototype.isFinished = function () {
         if (this.idx2 == this.parsedData[this.idx1][this.pattern[this.idx1]].length && this.idx1 == this.parsedData.length - 1) {
             this.idx1 = 0;
@@ -212,13 +219,13 @@ var Parser = /** @class */ (function () {
             this.prevChar = "";
             this.pattern = [];
             this.parsedData = [];
+            this.sentenceCorrect++;
             return true;
         }
         else {
             return false;
         }
     };
-
     Parser.prototype.colorTypedJapanese = function () {
         var hiranagaSentence = document.getElementById("hiragana");
         if (!hiranagaSentence)
@@ -263,4 +270,5 @@ var Parser = /** @class */ (function () {
     };
     return Parser;
 }());
+
 export default Parser;
