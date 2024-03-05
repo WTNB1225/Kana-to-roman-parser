@@ -6125,6 +6125,112 @@ var data = {
             Pattern: "ｚ",
             TypePattern: ["z", "Z"],
         },
+        {
+            Pattern: "a",
+            TypePattern: ["a"],
+        },
+        {
+            Pattern: "b",
+            TypePattern: ["b"],
+        },
+        {
+            Pattern: "c",
+            TypePattern: ["c"],
+        },
+        {
+            Pattern: "d",
+            TypePattern: ["d"],
+        },
+        {
+            Pattern: "e",
+            TypePattern: ["e"],
+        },
+        {
+            Pattern: "f",
+            TypePattern: ["f"],
+        },
+        {
+            Pattern: "g",
+            TypePattern: ["g"],
+        },
+        {
+            Pattern: "h",
+            TypePattern: ["h"],
+        },
+        {
+            Pattern: "i",
+            TypePattern: ["i"],
+        },
+        {
+            Pattern: "j",
+            TypePattern: ["j"],
+        },
+        {
+            Pattern: "k",
+            TypePattern: ["k"],
+        },
+        {
+            Pattern: "l",
+            TypePattern: ["l"],
+        },
+        {
+            Pattern: "m",
+            TypePattern: ["m"],
+        },
+        {
+            Pattern: "n",
+            TypePattern: ["n"],
+        },
+        {
+            Pattern: "o",
+            TypePattern: ["o"],
+        },
+        {
+            Pattern: "p",
+            TypePattern: ["p"],
+        },
+        {
+            Pattern: "q",
+            TypePattern: ["q"],
+        },
+        {
+            Pattern: "r",
+            TypePattern: ["r"],
+        },
+        {
+            Pattern: "s",
+            TypePattern: ["s"],
+        },
+        {
+            Pattern: "t",
+            TypePattern: ["t"],
+        },
+        {
+            Pattern: "u",
+            TypePattern: ["u"],
+        },
+        {
+            Pattern: "v",
+            TypePattern: ["v"],
+        },
+        {
+            Pattern: "w",
+            TypePattern: ["w"],
+        },
+        {
+            Pattern: "x",
+            TypePattern: ["x"],
+        },
+        {
+            Pattern: "y",
+            TypePattern: ["y"],
+        },
+        {
+            Pattern: "z",
+            TypePattern: ["z"],
+        },
+
+        
     ],
 };
 var romajiMap = function () {
