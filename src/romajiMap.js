@@ -6229,8 +6229,10 @@ var data = {
             Pattern: "z",
             TypePattern: ["z"],
         },
-
-        
+        {
+            Pattern: " ",
+            TypePattern: [" "],
+        },
     ],
 };
 var romajiMap = function () {
