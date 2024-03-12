@@ -5919,211 +5919,211 @@ var data = {
         },
         {
             Pattern: "A",
-            TypePattern: ["a", "A"],
+            TypePattern: ["A"],
         },
         {
             Pattern: "B",
-            TypePattern: ["b", "B"],
+            TypePattern: ["B"],
         },
         {
             Pattern: "C",
-            TypePattern: ["c", "C"],
+            TypePattern: ["C"],
         },
         {
             Pattern: "D",
-            TypePattern: ["d", "D"],
+            TypePattern: ["D"],
         },
         {
             Pattern: "E",
-            TypePattern: ["e", "E"],
+            TypePattern: ["E"],
         },
         {
             Pattern: "F",
-            TypePattern: ["f", "F"],
+            TypePattern: ["F"],
         },
         {
             Pattern: "G",
-            TypePattern: ["g", "G"],
+            TypePattern: ["G"],
         },
         {
             Pattern: "H",
-            TypePattern: ["h", "H"],
+            TypePattern: ["H"],
         },
         {
             Pattern: "I",
-            TypePattern: ["i", "I"],
+            TypePattern: ["I"],
         },
         {
             Pattern: "J",
-            TypePattern: ["j", "J"],
+            TypePattern: ["J"],
         },
         {
             Pattern: "K",
-            TypePattern: ["k", "K"],
+            TypePattern: ["K"],
         },
         {
             Pattern: "L",
-            TypePattern: ["l", "L"],
+            TypePattern: ["L"],
         },
         {
             Pattern: "M",
-            TypePattern: ["m", "M"],
+            TypePattern: ["M"],
         },
         {
             Pattern: "N",
-            TypePattern: ["n", "N"],
+            TypePattern: ["N"],
         },
         {
             Pattern: "O",
-            TypePattern: ["o", "O"],
+            TypePattern: ["O"],
         },
         {
             Pattern: "P",
-            TypePattern: ["p", "P"],
+            TypePattern: ["P"],
         },
         {
             Pattern: "Q",
-            TypePattern: ["q", "Q"],
+            TypePattern: ["Q"],
         },
         {
             Pattern: "R",
-            TypePattern: ["r", "R"],
+            TypePattern: ["R"],
         },
         {
             Pattern: "S",
-            TypePattern: ["s", "S"],
+            TypePattern: ["S"],
         },
         {
             Pattern: "T",
-            TypePattern: ["t", "T"],
+            TypePattern: ["T"],
         },
         {
             Pattern: "U",
-            TypePattern: ["u", "U"],
+            TypePattern: ["U"],
         },
         {
             Pattern: "V",
-            TypePattern: ["v", "V"],
+            TypePattern: ["V"],
         },
         {
             Pattern: "W",
-            TypePattern: ["w", "W"],
+            TypePattern: ["W"],
         },
         {
             Pattern: "X",
-            TypePattern: ["x", "X"],
+            TypePattern: ["X"],
         },
         {
             Pattern: "Y",
-            TypePattern: ["y", "Y"],
+            TypePattern: ["Y"],
         },
         {
             Pattern: "Z",
-            TypePattern: ["z", "Z"],
+            TypePattern: ["Z"],
         },
         {
             Pattern: "ａ",
-            TypePattern: ["a", "A"],
+            TypePattern: ["a"],
         },
         {
             Pattern: "ｂ",
-            TypePattern: ["b", "B"],
+            TypePattern: ["b"],
         },
         {
             Pattern: "ｃ",
-            TypePattern: ["c", "C"],
+            TypePattern: ["c"],
         },
         {
             Pattern: "ｄ",
-            TypePattern: ["d", "D"],
+            TypePattern: ["d"],
         },
         {
             Pattern: "ｅ",
-            TypePattern: ["e", "E"],
+            TypePattern: ["e"],
         },
         {
             Pattern: "ｆ",
-            TypePattern: ["f", "F"],
+            TypePattern: ["f"],
         },
         {
             Pattern: "ｇ",
-            TypePattern: ["g", "G"],
+            TypePattern: ["g"],
         },
         {
             Pattern: "ｈ",
-            TypePattern: ["h", "H"],
+            TypePattern: ["h"],
         },
         {
             Pattern: "ｉ",
-            TypePattern: ["i", "I"],
+            TypePattern: ["i"],
         },
         {
             Pattern: "ｊ",
-            TypePattern: ["j", "J"],
+            TypePattern: ["j"],
         },
         {
             Pattern: "ｋ",
-            TypePattern: ["k", "K"],
+            TypePattern: ["k"],
         },
         {
             Pattern: "ｌ",
-            TypePattern: ["l", "L"],
+            TypePattern: ["l"],
         },
         {
             Pattern: "ｍ",
-            TypePattern: ["m", "M"],
+            TypePattern: ["m"],
         },
         {
             Pattern: "ｎ",
-            TypePattern: ["n", "N"],
+            TypePattern: ["n"],
         },
         {
             Pattern: "ｏ",
-            TypePattern: ["o", "O"],
+            TypePattern: ["o"],
         },
         {
             Pattern: "ｐ",
-            TypePattern: ["p", "P"],
+            TypePattern: ["p"],
         },
         {
             Pattern: "ｑ",
-            TypePattern: ["q", "Q"],
+            TypePattern: ["q"],
         },
         {
             Pattern: "ｒ",
-            TypePattern: ["r", "R"],
+            TypePattern: ["r"],
         },
         {
             Pattern: "ｓ",
-            TypePattern: ["s", "S"],
+            TypePattern: ["s"],
         },
         {
             Pattern: "ｔ",
-            TypePattern: ["t", "T"],
+            TypePattern: ["t"],
         },
         {
             Pattern: "ｕ",
-            TypePattern: ["u", "U"],
+            TypePattern: ["u"],
         },
         {
             Pattern: "ｖ",
-            TypePattern: ["v", "V"],
+            TypePattern: ["v"],
         },
         {
             Pattern: "ｗ",
-            TypePattern: ["w", "W"],
+            TypePattern: ["w"],
         },
         {
             Pattern: "ｘ",
-            TypePattern: ["x", "X"],
+            TypePattern: ["x"],
         },
         {
             Pattern: "ｙ",
-            TypePattern: ["y", "Y"],
+            TypePattern: ["y"],
         },
         {
             Pattern: "ｚ",
-            TypePattern: ["z", "Z"],
+            TypePattern: ["z"],
         },
         {
             Pattern: "a",
