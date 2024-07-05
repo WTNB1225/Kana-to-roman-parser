@@ -1,11 +1,15 @@
 {
   "name": "hiragana-romazi-parser",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Reactに対応したタイピングゲームのローマ字複数入力を判定するライブラリ",
   "main": "index.js",
   "types": "index.d.ts",
   "dependencies": {
     "typescript": "^5.3.3"
+  },
+  "repository": {
+    "type": "git",
+    "url" : "https://github.com/WTNB1225/Kana-to-roman-parser"
   },
   "scripts": {
     "build": "tsc",
